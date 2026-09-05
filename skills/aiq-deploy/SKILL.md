@@ -9,7 +9,7 @@ compatibility: |
   Python 3.11+ and uv for local process or CLI mode, Node.js 20+ and npm for local web UI mode, or
   kubectl 1.28+ and Helm 3.12+ for Kubernetes and Helm mode.
 metadata:
-  version: "2.1.0"
+  version: "2.2.0"
   author: "NVIDIA AI-Q Blueprint Team <aiq-blueprint@nvidia.com>"
   github-url: "https://github.com/NVIDIA-AI-Blueprints/aiq"
   tags:
@@ -24,13 +24,14 @@ allowed-tools: Read Bash
 
 # AIQ Deploy Skill
 
-## Purpose
+## When to Use This Skill
 
 Use this skill to get a local or self-hosted NVIDIA AI-Q Blueprint server running and verified for use by
 `aiq-research`.
 
 This skill owns setup, deployment, operational checks, troubleshooting, and shutdown. It does not run deep
 research itself. After deployment is healthy, hand off the verified server URL to `aiq-research`.
+The workflow stays explicit so deployment validation and handoff are repeatable across supported agent clients.
 
 ## Prerequisites
 
@@ -58,7 +59,7 @@ git check-ignore deploy/.env
 Expected output: `deploy/.env` or a matching ignore rule. If it is not ignored, stop and fix the ignore rule before
 placing credentials in the file.
 
-## Instructions
+## Workflow
 
 1. Locate or clone the AI-Q repository.
 2. Confirm the expected repository files exist.
@@ -171,7 +172,7 @@ generation quality.
 
 ## Version Compatibility
 
-**IMPORTANT:** This skill is designed for NVIDIA AI-Q Blueprint version 2.1.0.
+**IMPORTANT:** This skill is designed for NVIDIA AI-Q Blueprint version 2.2.0.
 
 Semantic Versioning Compatibility Rules:
 
@@ -187,11 +188,11 @@ Compatible IF:
 
 Examples:
 
-- Skill version 2.1.0 is compatible with Blueprint version 2.1.0.
-- Skill version 2.1.0 is compatible with Blueprint version 2.2.0.
-- Skill version 2.1.0 is compatible with Blueprint version 2.1.5.
-- Skill version 2.1.0 is not compatible with Blueprint version 3.0.0.
-- Skill version 2.1.0 is not compatible with Blueprint version 2.0.0.
+- Skill version 2.2.0 is compatible with Blueprint version 2.2.0.
+- Skill version 2.2.0 is compatible with Blueprint version 2.3.0.
+- Skill version 2.2.0 is compatible with Blueprint version 2.2.5.
+- Skill version 2.2.0 is not compatible with Blueprint version 3.0.0.
+- Skill version 2.2.0 is not compatible with Blueprint version 2.1.0.
 
 If your Blueprint version is not compatible:
 
