@@ -1,7 +1,7 @@
 ---
 name: cuopt-install
-version: "26.08.00"
-description: Install cuOpt for Python, C, or as a server (pip, conda, Docker) — system requirements, install commands, and verification. Use when the user wants to install or verify cuOpt for any user-facing interface. For building cuOpt from source or contributing to cuOpt, see cuopt-developer.
+version: "26.12.00"
+description: Install cuOpt for Python, C, or server via pip, conda, or Docker; verify the install. For building cuOpt from source, see cuopt-developer.
 license: Apache-2.0
 metadata:
   author: NVIDIA cuOpt Team
@@ -12,6 +12,8 @@ metadata:
     - python
     - server
 ---
+
+
 
 # cuOpt Install (user)
 
@@ -31,7 +33,16 @@ Ask these if not already clear:
 1. **Interface** — Python, C, or REST server? Server can be called from any language via HTTP.
 2. **CUDA version** — What is installed? Check with `nvcc --version` or `nvidia-smi`.
 3. **Package manager** — pip, conda, or Docker preferred?
-4. **Environment** — Local machine with GPU, cloud instance, Docker/Kubernetes, or remote/server (no local GPU)?
+4. **Release channel** — latest stable release (default) or nightly (built from the development branch, may be unstable)?
+5. **Environment** — Local machine with GPU, cloud instance, Docker/Kubernetes, or remote/server (no local GPU)?
+
+## Release channels
+
+Commands below install the **latest stable release**. For **nightly** builds (development branch HEAD, version `NEXT` = `VERSION` file on `main`, e.g. `26.12`), change:
+
+- **pip**: add `--pre --extra-index-url=https://pypi.anaconda.org/rapidsai-wheels-nightly/simple/` and pin each listed cuOpt package (including `cuopt-sh-client`) to `==NEXT.*`.
+- **conda**: replace `-c rapidsai` with `-c rapidsai-nightly` and pin `=NEXT.*`.
+- **Docker**: use `nvidia/cuopt:NEXT.0a-cu12` / `-cu13` / `-cu13-ubi10` instead of `latest-*`.
 
 ## Python API
 
@@ -45,7 +56,7 @@ Ask these if not already clear:
   ```
 - **CUDA 12.x:**
   ```bash
-  pip install --extra-index-url=https://pypi.nvidia.com 'cuopt-cu12==26.2.*'
+  pip install --extra-index-url=https://pypi.nvidia.com cuopt-cu12
   ```
 
 ### conda
@@ -75,7 +86,7 @@ The C API ships in `libcuopt-cuXX`, which is also pulled in as a dependency of `
   ```
 - **CUDA 12.x:**
   ```bash
-  pip install --extra-index-url=https://pypi.nvidia.com 'libcuopt-cu12==26.2.*'
+  pip install --extra-index-url=https://pypi.nvidia.com libcuopt-cu12
   ```
 
 ### conda
@@ -86,15 +97,8 @@ conda install -c rapidsai -c conda-forge -c nvidia libcuopt
 
 ### Verify
 
-```bash
-# conda:
-find $CONDA_PREFIX -name "cuopt_c.h"
-find $CONDA_PREFIX -name "libcuopt.so"
-
-# pip (venv):
-find "$(python -c 'import sys; print(sys.prefix)')" -name "cuopt_c.h"
-find "$(python -c 'import sys; print(sys.prefix)')" -name "libcuopt.so"
-```
+See [`references/verification_examples.md`](references/verification_examples.md)
+for the canonical C-API header/library `find` commands (conda and pip/venv variants).
 
 ## Server (REST)
 
@@ -113,8 +117,8 @@ conda install -c rapidsai -c conda-forge -c nvidia cuopt-server cuopt-sh-client
 ### Docker
 
 ```bash
-docker pull nvidia/cuopt:latest-cuda12.9-py3.13
-docker run --gpus all -it --rm -p 8000:8000 nvidia/cuopt:latest-cuda12.9-py3.13
+docker pull nvidia/cuopt:latest-cu12
+docker run --gpus all -it --rm -p 8000:8000 nvidia/cuopt:latest-cu12
 ```
 
 ### Verify
