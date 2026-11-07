@@ -83,7 +83,7 @@ find ${CONDA_PREFIX:-/usr} -name "libcuopt.so" 2>/dev/null
 
 # Test compile (if gcc available)
 cat > /tmp/test_cuopt.c << 'EOF'
-#include <cuopt/linear_programming/cuopt_c.h>
+#include <cuopt/mathematical_optimization/cuopt_c.h>
 #include <stdio.h>
 int main() {
     printf("cuopt_c.h found and compilable\n");
@@ -151,7 +151,7 @@ python -c "import rmm; print(f'rmm: {rmm.__version__}')"
 
 ```bash
 # Pull and run
-docker run --gpus all --rm nvidia/cuopt:latest-cuda12.9-py3.13 python -c "
+docker run --gpus all --rm nvidia/cuopt:latest-cu12 python -c "
 import cuopt
 print(f'cuOpt version: {cuopt.__version__}')
 from cuopt import routing
